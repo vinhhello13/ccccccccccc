@@ -1,0 +1,15 @@
+repeat task.wait() until game:IsLoaded() and game.Players.LocalPlayer
+
+getgenv().__BANANA_SCRIPT_ROUTE = getgenv().__BANANA_SCRIPT_ROUTE or "bf_main"
+
+local routes = type(getgenv().__BANANA_SCRIPT_ROUTE) == "table" 
+    and getgenv().__BANANA_SCRIPT_ROUTE 
+    or {getgenv().__BANANA_SCRIPT_ROUTE}
+
+for _, route in ipairs(routes) do
+    task.spawn(function()
+        pcall(function()
+            loadstring(game:HttpGet("https://banana-hub.xyz/scripts/" .. tostring(route) .. ".lua"))()
+        end)
+    end)
+end
